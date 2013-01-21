@@ -85,7 +85,7 @@ Wrapping your search inside an array still returns all matches
 
 === Dynamic attribute-based finders
 
-+QueryableArray#method_missing+ allows you to lookup objects using a notation like the +ActiveRecord+ dynamic finders
+<tt>QueryableArray#method_missing</tt> allows you to lookup objects using a notation like the +ActiveRecord+ dynamic finders
 
   pages.find_by_uri('/')                   # => #<Page @uri='/' @name='Home'>
   pages.find_by_uri_and_name('/', 'Home')  # => #<Page @uri='/' @name='Home'>
