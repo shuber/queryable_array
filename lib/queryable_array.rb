@@ -5,6 +5,16 @@ require 'respond_to_missing'
 # overrides +[]+, +find_all+ and +method_missing+ to provide a simplified DSL
 # for looking up objects by querying their attributes.
 class QueryableArray < Array
+  module Version
+    MAJOR = 0
+    MINOR = 0
+    PATCH = 0
+
+    def self.to_s
+      [MAJOR, MINOR, PATCH].join('.')
+    end
+  end
+
   attr_accessor :default_finders
 
   # Accepts an initial +array+ which defaults to +[]+. An optional +default_finders+
