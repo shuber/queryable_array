@@ -5,7 +5,7 @@
 
 A +QueryableArray+ inherits from +Array+ and is intended to store a group of
 objects which share the same attributes allowing them to be searched. It
-overrides +[]+, +find_all+ and +method_missing+ to provide a simplified DSL
+overrides <tt>[]</tt>, +find_all+ and +method_missing+ to provide a simplified DSL
 for looking up objects by querying their attributes.
 
 View the full documentation over at rubydoc.info[http://rubydoc.info/github/shuber/queryable_array/frames].
@@ -41,7 +41,7 @@ Attributes may also be searched by regular expressions
   pages[name: /home/i]   # => #<Page @uri='/' @name='Home'>
   pages[[uri: /users/]]  # => [#<Page @uri='/users/bob' @name='Bob'>, #<Page @uri='/users/steve' @name='Steve'>, ...]
 
-The methods +find_by+ and +find_all+ behave as aliases for +[search_hash]+ and +[[search_hash]]+ respectively
+The methods +find_by+ and +find_all+ behave as aliases for <tt>[search_hash]</tt> and <tt>[[search_hash]]</tt> respectively
 
   pages.find_by(name: 'Home')     # => #<Page @uri='/' @name='Home'>
   pages.find_by(name: 'Missing')  # => nil
