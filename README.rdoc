@@ -51,9 +51,10 @@ The existing block form for those methods work as well
 
   pages.find_all { |page| page.uri =~ /users/ }  # => [#<Page @uri='/users/bob' @name='Bob'>, #<Page @uri='/users/steve' @name='Steve'>, ...]
 
-You can still lookup objects by index or ranges as well
+Lookups by index or ranges still behave exactly as they do in regular +Array+ objects
 
   pages[0]     # => #<Page @uri='/' @name='Home'>
+  pages[99]    # => nil
   pages[0..1]  # => [#<Page @uri='/' @name='Home'>, #<Page @uri='/about' @name='About'>]
 
 
