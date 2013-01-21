@@ -1,6 +1,7 @@
 = queryable_array
 
 {<img src="https://secure.travis-ci.org/shuber/queryable_array.png"/>}[http://travis-ci.org/shuber/queryable_array]
+{<img src="https://gemnasium.com/shuber/queryable_array.png"/>}[https://gemnasium.com/shuber/queryable_array]
 
 A +QueryableArray+ inherits from +Array+ and is intended to store a group of
 objects which share the same attributes allowing them to be searched. It
