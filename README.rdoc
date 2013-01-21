@@ -81,3 +81,23 @@ You can even specify multiple +default_finders+
 Wrapping your search inside an array still returns all matches
 
   pages[[/users/]]  # => [#<Page @uri='/users/bob' @name='Bob'>, #<Page @uri='/users/steve' @name='Steve'>, ...]
+
+
+=== Dynamic attribute-based finders
+
++QueryableArray#method_missing+ allows you to lookup objects using a notation like the +ActiveRecord+ dynamic finders
+
+  pages.find_by_uri('/')                   # => #<Page @uri='/' @name='Home'>
+  pages.find_by_uri_and_name('/', 'Home')  # => #<Page @uri='/' @name='Home'>
+  pages.find_by_uri('/missing')            # => nil
+
+  pages.find_all_by_uri('/')               # => [#<Page @uri='/' @name='Home'>]
+  pages.find_all_by_uri(/users/)           # => [#<Page @uri='/users/bob' @name='Bob'>, #<Page @uri='/users/steve' @name='Steve'>, ...]
+
+If any +default_finders+ are defined you may even use dot notation to lookup objects by those attributes
+
+  pages = QueryableArray.new Page.all, :name
+
+  pages.sitemap               # => #<Page @uri='/sitemap' @name='sitemap'>
+  pages.missing               # => NoMethodError
+  QueryableArray.new.missing  # => NoMethodError
