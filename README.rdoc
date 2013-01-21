@@ -17,4 +17,36 @@ View the full documentation over at rubydoc.info[http://rubydoc.info/github/shub
 
 == Usage
 
-TODO
+=== Basic
+
+Initialize the +QueryableArray+ with a collection of objects e.g. +Page+ objects from a database
+
+  pages = QueryableArray.new Page.all
+
+The +pages+ object can then be queried by passing a search hash to the +[]+ method
+
+  pages[uri: '/']                    # => #<Page @uri='/' @name='Home'>
+  pages[name: 'About']               # => #<Page @uri='/about' @name='About'>
+  pages[uri: '/', name: 'Home']      # => #<Page @uri='/' @name='Home'>
+  pages[uri: '/', name: 'Mismatch']  # => nil
+
+Notice that it only returns the first matching object or nil if one is not found. If you'd like to find
+all matching objects, simply wrap your search hash in an array
+
+  pages[[published: true]]  # => [#<Page @uri='/' @name='Home'>, #<Page @uri='/about' @name='About'>, ...]
+  pages[[uri: '/missing']]  # => []
+
+Attributes may also be searched by regular expressions
+
+  pages[name: /home/i]   # => #<Page @uri='/' @name='Home'>
+  pages[[uri: /users/]]  # => [#<Page @uri='/users/bob' @name='Bob'>, #<Page @uri='/users/steve' @name='Steve'>, ...]
+
+The methods +find_by+ and +find_all+ behave as aliases for +[search_hash]+ and +[[search_hash]]+ respectively
+
+  pages.find_by(name: 'Home')     # => #<Page @uri='/' @name='Home'>
+  pages.find_by(name: 'Missing')  # => nil
+  pages.find_all(uri: /users/)    # => [#<Page @uri='/users/bob' @name='Bob'>, #<Page @uri='/users/steve' @name='Steve'>, ...]
+
+The existing block form for those methods work as well
+
+  pages.find_all { |page| page.uri =~ /users/ }  # => [#<Page @uri='/users/bob' @name='Bob'>, #<Page @uri='/users/steve' @name='Steve'>, ...]
