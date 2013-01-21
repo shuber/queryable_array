@@ -1,0 +1,24 @@
+PATH
+  remote: .
+  specs:
+    queryable_array (0.0.0)
+      respond_to_missing
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    json (1.7.6)
+    minitest (4.4.0)
+    rake (10.0.3)
+    rdoc (3.12)
+      json (~> 1.4)
+    respond_to_missing (0.0.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  minitest
+  queryable_array!
+  rake
+  rdoc
