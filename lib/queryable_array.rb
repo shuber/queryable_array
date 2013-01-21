@@ -1,3 +1,5 @@
+require 'respond_to_missing'
+
 # A +QueryableArray+ inherits from +Array+ and is intended to store a group of
 # objects which share the same attributes allowing them to be searched. It
 # overrides +[]+, +find_all+ and +method_missing+ to provide a simplified DSL
