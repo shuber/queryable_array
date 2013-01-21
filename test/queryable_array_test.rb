@@ -1,6 +1,7 @@
 $: << File.expand_path('../../lib', __FILE__)
 require 'queryable_array'
 require 'minitest/spec'
+require 'minitest/autorun'
 
 describe QueryableArray do
   let(:page) { Struct.new(:uri, :name) }
