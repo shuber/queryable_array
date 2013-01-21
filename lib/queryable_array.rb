@@ -3,7 +3,7 @@
 # overrides +[]+, +find_all+ and +method_missing+ to provide a simplified DSL
 # for looking up objects by querying their attributes.
 class QueryableArray < Array
-  attr_reader :default_finders
+  attr_accessor :default_finders
 
   # Accepts an initial +array+ which defaults to +[]+. An optional +default_finders+
   # may also be specified as the second argument which is used in +QueryableArray#[]+
@@ -11,7 +11,7 @@ class QueryableArray < Array
   # +QueryableArray#[]+ method for more documentation.
   def initialize(array = [], default_finders = nil)
     super(array)
-    @default_finders = Array(default_finders)
+    self.default_finders = Array(default_finders)
   end
 
   # If +default_finders+ has been set and +key+ is not a +Fixnum+ then it
