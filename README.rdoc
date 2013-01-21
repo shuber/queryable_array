@@ -8,6 +8,7 @@ objects which share the same attributes allowing them to be searched. It
 overrides +[]+, +find_all+ and +method_missing+ to provide a simplified DSL
 for looking up objects by querying their attributes.
 
+View the full documentation over at rubydoc.info[http://rubydoc.info/github/shuber/queryable_array/frames].
 
 == Installation
 
