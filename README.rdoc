@@ -50,3 +50,33 @@ The methods +find_by+ and +find_all+ behave as aliases for +[search_hash]+ and +
 The existing block form for those methods work as well
 
   pages.find_all { |page| page.uri =~ /users/ }  # => [#<Page @uri='/users/bob' @name='Bob'>, #<Page @uri='/users/steve' @name='Steve'>, ...]
+
+You can still lookup objects by index or ranges as well
+
+  pages[0]     # => #<Page @uri='/' @name='Home'>
+  pages[0..1]  # => [#<Page @uri='/' @name='Home'>, #<Page @uri='/about' @name='About'>]
+
+
+=== Default finders
+
+A +QueryableArray+ object can be initialized with a +default_finder+ to make lookups even simpler
+
+  pages = QueryableArray.new Page.all, :uri
+
+Now the +pages+ object can be searched easily by +uri+
+
+  pages['/']         # => #<Page @uri='/' @name='Home'>
+  pages['/about']    # => #<Page @uri='/about' @name='About'>
+  pages['/missing']  # => nil
+
+You can even specify multiple +default_finders+
+
+  pages = QueryableArray.new Page.all, [:uri, :name]
+
+  pages['/about']  # => #<Page @uri='/about' @name='About'>
+  pages['About']   # => #<Page @uri='/about' @name='About'>
+  pages[/home/i]   # => #<Page @uri='/' @name='Home'>
+
+Wrapping your search inside an array still returns all matches
+
+  pages[[/users/]]  # => [#<Page @uri='/users/bob' @name='Bob'>, #<Page @uri='/users/steve' @name='Steve'>, ...]
