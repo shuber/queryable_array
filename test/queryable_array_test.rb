@@ -25,9 +25,9 @@ describe QueryableArray do
     end
 
     it 'should lookup objects by hash' do
-      collection[uri: 'page_1'].must_equal pages[0]
-      collection[uri: 'page_1', name: 'PAGE_1'].must_equal pages[0]
-      collection[uri: 'page_1', name: 'INVALID'].must_equal nil
+      collection[:uri => 'page_1'].must_equal pages[0]
+      collection[:uri => 'page_1', :name => 'PAGE_1'].must_equal pages[0]
+      collection[:uri => 'page_1', :name => 'INVALID'].must_equal nil
     end
 
     it 'should not accept strings if default_finders is nil' do
@@ -38,10 +38,10 @@ describe QueryableArray do
       collection[['page_1']].must_equal [pages[0]]
       collection[[/page/]].must_equal pages
       collection[['missing']].must_equal []
-      collection[[uri: 'page_1']].must_equal [pages[0]]
-      collection[[uri: 'page_1', name: 'PAGE_1']].must_equal [pages[0]]
-      collection[[uri: /page/]].must_equal pages
-      collection[[uri: 'page_1', name: 'INVALID']].must_equal []
+      collection[[:uri => 'page_1']].must_equal [pages[0]]
+      collection[[:uri => 'page_1', :name => 'PAGE_1']].must_equal [pages[0]]
+      collection[[:uri => /page/]].must_equal pages
+      collection[[:uri => 'page_1', :name => 'INVALID']].must_equal []
     end
   end
 
@@ -49,7 +49,7 @@ describe QueryableArray do
     it 'should only return the first match' do
       struct = Struct.new(:name, :age)
       collection = QueryableArray.new [struct.new('bob', 23), struct.new('steve', 23)]
-      collection.find_by(age: 23).must_equal collection[0]
+      collection.find_by(:age => 23).must_equal collection[0]
     end
   end
 
