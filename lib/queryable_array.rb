@@ -49,22 +49,22 @@ class QueryableArray < Array
   #   pages[[uri: '/']]                # => [#<Page @uri='/' @name='Home'>]
   #   pages[[uri: '/', name: 'Typo']]  # => []
   def [](key)
-    # Try to handle numeric indexes, ranges, and anything else Array natively
-    # supports first
+    # Try to handle numeric indexes, ranges, and anything else that is
+    # natively supported by Array first
     super
   rescue TypeError => error
     if default_finders.empty?
       raise error
     else
-      finder, key = key.is_a?(Array) ? [:find_all, key.first] : [:find_by, key]
+      method, key = key.is_a?(Array) ? [:find_all, key.first] : [:find_by, key]
       if key.is_a?(Hash)
-        send finder, key
+        send method, key
       else
-        detector, default = finder == :find_all ? [:empty?, []] : [:nil?, nil]
-        default_finders.find do |attribute|
-          match = send finder, attribute => key
-          return match unless match.send detector
-        end || default
+        send method do |object|
+          default_finders.any? do |attribute|
+            finder(attribute => key).call object
+          end
+        end
       end
     end
   end

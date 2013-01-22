@@ -43,6 +43,12 @@ describe QueryableArray do
       collection[[:uri => /page/]].must_equal pages
       collection[[:uri => 'page_1', :name => 'INVALID']].must_equal []
     end
+
+    it 'should check all attributes before returning matches' do
+      struct = Struct.new(:first_name, :last_name)
+      collection = QueryableArray.new [struct.new('steve', 'hudson'), struct.new('hudson', 'jones')], [:first_name, :last_name]
+      collection[['hudson']].must_equal collection
+    end
   end
 
   describe :find_by do
