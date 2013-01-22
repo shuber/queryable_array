@@ -7,12 +7,15 @@ PATH
 GEM
   remote: http://rubygems.org/
   specs:
+    ansi (1.4.3)
     json (1.7.6)
     minitest (4.4.0)
     rake (10.0.3)
     rdoc (3.12)
       json (~> 1.4)
     respond_to_missing (0.0.0)
+    turn (0.9.6)
+      ansi
 
 PLATFORMS
   ruby
@@ -22,3 +25,4 @@ DEPENDENCIES
   queryable_array!
   rake
   rdoc
+  turn
