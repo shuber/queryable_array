@@ -1,9 +1,5 @@
-$: << File.expand_path('../../lib', __FILE__)
+require File.expand_path('../test_helper', __FILE__)
 require 'queryable_array'
-require 'minitest/spec'
-require 'turn/autorun'
-
-Turn.config.format = :dot
 
 describe QueryableArray do
   let(:page) { Struct.new(:uri, :name) }
