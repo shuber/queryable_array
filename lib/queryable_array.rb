@@ -131,7 +131,7 @@ class QueryableArray < Array
   # values. The search hash is then passed to +find_all+ or +find_by+ depending
   # on what type of method was called.
   #
-  # If +method+ is not a +finder?+ then +self[method]+ is returned. If it returns
+  # If +method+ is not a +finder?+ then +self[/#{method}/i]+ is returned. If it returns
   # +nil+ or raises +TypeError+ (no +default_finders+) then +super+ is returned.
   #
   #   users = QueryableArray.new User.all, :username
@@ -141,14 +141,16 @@ class QueryableArray < Array
   #   users.find_all_by_age 27              # => [#<User @age=27>, #<User @age=27>, ...]
   #
   #   users.bob                             # => #<User @name='bob'>
+  #   users.BOB                             # => #<User @name='bob'>
   #   users.missing                         # => NoMethodError
   #   QueryableArray.new.missing            # => NoMethodError
   def method_missing(method, *arguments)
     if query = finder?(method)
       search = Hash[query[3].split('_and_').zip(arguments)]
       send query[1], search
-    else
-      (self[method.to_s] rescue TypeError nil) || super
+    elsif method.to_s =~ /^(.+?)(\!)?$/
+      search = $2 ? $1 : /#{$1}/i
+      (self[search] rescue TypeError nil) || super
     end
   end
 

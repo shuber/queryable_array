@@ -116,10 +116,17 @@ describe QueryableArray do
       collection.find_by_name_and_uri('PAGE_1', 'page_3').must_be_nil
     end
 
-    it 'should allow default finder lookups by method name' do
+    it 'should allow default finder lookups by method name using regex' do
       collection.page_1.must_equal pages[0]
       collection.PAGE_1.must_equal pages[0]
+      collection.pAgE_1.must_equal pages[0]
       proc { collection.page_99 }.must_raise NoMethodError
+    end
+
+    it 'should allow strict default finder lookups by method name using the raw value' do
+      collection.page_1!.must_equal pages[0]
+      collection.PAGE_1!.must_equal pages[0]
+      proc { collection.pAgE_1! }.must_raise NoMethodError
     end
 
     it 'should pass non finder methods to super' do
