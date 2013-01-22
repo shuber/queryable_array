@@ -49,6 +49,8 @@ class QueryableArray < Array
   #   pages[[uri: '/']]                # => [#<Page @uri='/' @name='Home'>]
   #   pages[[uri: '/', name: 'Typo']]  # => []
   def [](key)
+    # Try to handle numeric indexes, ranges, and anything else Array natively
+    # supports first
     super
   rescue TypeError => error
     if default_finders.empty?
