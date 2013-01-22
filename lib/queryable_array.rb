@@ -155,6 +155,6 @@ class QueryableArray < Array
   # Determines if +method+ is a +finder?+ and delegates the call to its
   # superclass +Array+ if it's not.
   def respond_to_missing?(method, include_super)
-    finder?(method) || super
+    !!finder?(method) || super
   end
 end
