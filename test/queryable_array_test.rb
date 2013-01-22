@@ -118,4 +118,13 @@ describe QueryableArray do
       proc { collection.missing }.must_raise NoMethodError
     end
   end
+
+  describe :respond_to_missing? do
+    it 'should check if the method is a finder' do
+      collection.respond_to?(:find_by_name).must_equal true
+      collection.respond_to?(:find_all_by_name).must_equal true
+      collection.respond_to?(:find_stuff).must_equal false
+      collection.respond_to?(:invalid).must_equal false
+    end
+  end
 end
