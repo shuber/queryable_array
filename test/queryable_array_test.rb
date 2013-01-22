@@ -128,6 +128,12 @@ describe QueryableArray do
     it 'should pass non finder methods to super' do
       proc { collection.missing }.must_raise NoMethodError
     end
+
+    it 'should return a boolean when looking up using a ?' do
+      collection.page_1?.must_equal true
+      collection.pAgE_1?.must_equal true
+      collection.missing?.must_equal false
+    end
   end
 
   describe :respond_to_missing? do

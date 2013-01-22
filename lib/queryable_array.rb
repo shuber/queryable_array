@@ -134,6 +134,9 @@ class QueryableArray < Array
   # If +method+ is not a +finder?+ then +self[/#{method}/i]+ is returned. If it returns
   # +nil+ or raises +TypeError+ (no +default_finders+) then +super+ is returned.
   #
+  # If +method+ ends in a +!+ then +self[method]+ (without the +!+) is returned. If +method+
+  # ends with a +?+ then a boolean is returned determining whether or not a match was found.
+  #
   #   users = QueryableArray.new User.all, :username
   #
   #   users.find_by_name 'bob'              # => #<User @name='bob'>
@@ -148,9 +151,10 @@ class QueryableArray < Array
     if query = finder?(method)
       search = Hash[query[3].split('_and_').zip(arguments)]
       send query[1], search
-    elsif method.to_s =~ /^(.+?)(\!)?$/
-      search = $2 ? $1 : /#{$1}/i
-      (self[search] rescue TypeError nil) || super
+    elsif method.to_s =~ /^(.+?)([\!\?])?$/
+      search = $2 == '!' ? $1 : /#{$1}/i
+      value = (self[search] rescue TypeError nil)
+      $2 == '?' ? !!value : (value || super)
     end
   end
 
