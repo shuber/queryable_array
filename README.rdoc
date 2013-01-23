@@ -34,7 +34,7 @@ The +pages+ object can then be queried by passing a search hash to the +[]+ meth
 Notice that it only returns the first matching object or nil if one is not found. If you'd like to find
 all matching objects, simply wrap your search hash in an array
 
-  pages[[published: true]]  # => [#<Page @uri='/' @name='Home'>, #<Page @uri='/about' @name='About'>, ...]
+  pages[[published: true]]  # => [#<Page @uri='/' @name='Home' @published=true>, #<Page @uri='/about' @name='About' @published=true>, ...]
   pages[[uri: '/missing']]  # => []
 
 Attributes may also be searched by regular expressions
@@ -55,6 +55,7 @@ The existing block form for those methods work as well
 Lookups by index or ranges still behave exactly as they do in regular +Array+ objects
 
   pages[0]     # => #<Page @uri='/' @name='Home'>
+  pages[-1]    # => #<Page @uri='/zebras' @name='Zebras'>
   pages[99]    # => nil
   pages[0..1]  # => [#<Page @uri='/' @name='Home'>, #<Page @uri='/about' @name='About'>]
 
