@@ -109,10 +109,10 @@ If any +default_finders+ are defined you may even use dot notation to lookup obj
 
 Calling <tt>pages.sitemap</tt> behaves the same as <tt>pages[/sitemap/i]</tt>
 
-To perform a case-sensitive search, simply append a +!+ to the end of your method call
+To perform a case-sensitive search, simply append a <tt>!</tt> to the end of your method call
 e.g. <tt>pages.sitemap!</tt> which calls <tt>pages['sitemap']</tt>
 
-You may also query to see if a match exists by appending a +?+ to your search
+You may also query to see if a match exists by appending a <tt>?</tt> to your search
 
   pages.sitemap?  # => true
   pages.missing?  # => false
