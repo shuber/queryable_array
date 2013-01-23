@@ -96,10 +96,23 @@ Wrapping your search inside an array still returns all matches
   pages.find_all_by_uri('/')               # => [#<Page @uri='/' @name='Home'>]
   pages.find_all_by_uri(/users/)           # => [#<Page @uri='/users/bob' @name='Bob'>, #<Page @uri='/users/steve' @name='Steve'>, ...]
 
+
+=== Dot notation finders
+
 If any +default_finders+ are defined you may even use dot notation to lookup objects by those attributes
 
   pages = QueryableArray.new Page.all, :name
 
-  pages.sitemap               # => #<Page @uri='/sitemap' @name='sitemap'>
+  pages.sitemap               # => #<Page @uri='/sitemap' @name='Sitemap'>
   pages.missing               # => NoMethodError
   QueryableArray.new.missing  # => NoMethodError
+
+Calling <tt>pages.sitemap</tt> behaves the same as <tt>pages[/sitemap/i]</tt>
+
+To perform a case-sensitive search, simply append a +!+ to the end of your method call
+e.g. <tt>pages.sitemap!</tt> which calls <tt>pages['sitemap']</tt>
+
+You may also query to see if a match exists by appending a +?+ to your search
+
+  pages.sitemap?  # => true
+  pages.missing?  # => false
