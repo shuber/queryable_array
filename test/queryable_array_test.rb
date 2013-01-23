@@ -134,6 +134,12 @@ describe QueryableArray do
       collection.pAgE_1?.must_equal true
       collection.missing?.must_equal false
     end
+
+    it 'should lookup methods with unicode characters' do
+      snowman = page.new '/snowman', '☃'
+      collection << snowman
+      collection.☃.must_equal snowman
+    end
   end
 
   describe :respond_to_missing? do
