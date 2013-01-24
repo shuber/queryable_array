@@ -31,7 +31,7 @@ class QueryableArray < Array
     end
 
     def respond_to_missing?(method_name, include_super)
-      method_name.to_s =~ /\?$/ || super || send(method_name)
+      !!(method_name.to_s =~/\?$/ || super || send(method_name))
     rescue NoMethodError
       false
     end
