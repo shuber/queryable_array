@@ -52,6 +52,11 @@ The existing block form for those methods work as well
 
   pages.find_all { |page| page.uri =~ /users/ }  # => [#<Page @uri='/users/bob' @name='Bob'>, #<Page @uri='/users/steve' @name='Steve'>, ...]
 
+A +Proc+ object may be passed to <tt>[]</tt> as well
+
+  pages[uri: proc { |uri| uri.split('/').size > 1 }]  # => #<Page @uri='/users/bob' @name='Bob'>
+  pages[proc { |page| page.uri == '/' }]              # => #<Page @uri='/' @name='Home'>
+
 Lookups by index or ranges still behave exactly as they do in regular +Array+ objects
 
   pages[0]     # => #<Page @uri='/' @name='Home'>

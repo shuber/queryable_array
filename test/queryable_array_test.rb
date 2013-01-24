@@ -47,6 +47,11 @@ describe QueryableArray do
       collection = QueryableArray.new [struct.new('steve', 'hudson'), struct.new('hudson', 'jones')], [:first_name, :last_name]
       collection[['hudson']].must_equal collection
     end
+
+    it 'should accept a proc' do
+      collection[:name => proc { |name| $1.to_i == 2 if name =~ /.+?(\d+)$/ }].must_equal pages[1]
+      collection[proc { |page| page.uri == 'page_1' }].must_equal pages[0]
+    end
   end
 
   describe :find_by do

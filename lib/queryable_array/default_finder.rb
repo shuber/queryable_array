@@ -31,9 +31,18 @@ class QueryableArray < Array
         raise error
       else
         method, key = key.is_a?(Array) ? [:find_all, key.first] : [:find_by, key]
-        send method do |object|
+        send method, &query(key)
+      end
+    end
+
+    def query(search)
+      case search
+      when Proc
+        search
+      else
+        Proc.new do |object|
           default_finders.any? do |attribute|
-            finder(attribute => key).call object
+            finder(attribute => search).call object
           end
         end
       end
