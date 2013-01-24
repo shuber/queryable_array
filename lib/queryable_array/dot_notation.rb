@@ -29,5 +29,11 @@ class QueryableArray < Array
         $2 == '?' ? !!value : (value || super)
       end
     end
+
+    def respond_to_missing?(method_name, include_super)
+      method_name.to_s =~ /\?$/ || super || send(method_name)
+    rescue NoMethodError
+      false
+    end
   end
 end

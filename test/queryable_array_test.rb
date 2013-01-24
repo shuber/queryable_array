@@ -172,5 +172,16 @@ describe QueryableArray do
       collection.respond_to?(:find_stuff).must_equal false
       collection.respond_to?(:invalid).must_equal false
     end
+
+    it 'should check if the method can be handled by DotNotation' do
+      collection.respond_to?(:page_1).must_equal true
+      collection.respond_to?(:PAGE_1).must_equal true
+      collection.respond_to?(:pAgE_1).must_equal true
+      collection.respond_to?(:page_1?).must_equal true
+      collection.respond_to?(:missing?).must_equal true
+      collection.respond_to?(:page_1!).must_equal true
+      collection.respond_to?(:pAgE_1!).must_equal false
+      collection.respond_to?(:missing).must_equal false
+    end
   end
 end
