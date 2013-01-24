@@ -60,6 +60,11 @@ describe QueryableArray do
       pages[0].instance_eval { def to_s; 'PAGE_1'; end }
       collection[callable].must_equal pages[0]
     end
+
+    it 'should not throw NoMethodError if an attribute does not exist' do
+      collection[:missing => 'test'].must_be_nil
+      collection[[:missing => 'test']].must_equal []
+    end
   end
 
   describe :find_by do
