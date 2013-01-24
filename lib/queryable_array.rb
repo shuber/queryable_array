@@ -123,7 +123,10 @@ class QueryableArray < Array
   #   finder? :find_name                         # => false
   #   finder? :some_method                       # => false
   def finder?(method_name)
-    method_name.to_s.match(/^(find(_all)?_by)_(.+?)([\?\!])?$/i)
+    if match = method_name.to_s.match(/^(find_(by|all_by))_(.+?)([\?\!])?$/i)
+      keys = [:method_name, :prefix, :type, :attributes, :suffix]
+      Hash[keys.zip match.to_a]
+    end
   end
 
   # If +method+ is a +finder?+ then it creates a search hash by zipping the
@@ -149,8 +152,8 @@ class QueryableArray < Array
   #   QueryableArray.new.missing            # => NoMethodError
   def method_missing(method, *arguments)
     if query = finder?(method)
-      search = Hash[query[3].split('_and_').zip(arguments)]
-      send query[1], search
+      search = Hash[query[:attributes].split('_and_').zip(arguments)]
+      send "find_#{query[:type]}", search
     elsif method.to_s =~ /^(.+?)([\!\?])?$/
       search = $2 == '!' ? $1 : /#{$1}/i
       value = (self[search] rescue TypeError nil)
