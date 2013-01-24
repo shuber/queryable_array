@@ -90,8 +90,19 @@ describe QueryableArray do
       collection.finder?('find_by').must_be_nil
     end
 
-    it 'should return a MatchData object' do
-      collection.finder?('find_by_name').must_be_instance_of MatchData
+    describe MatchData do
+      let(:match_data) { collection.finder?('find_all_by_name_and_email_address!') }
+      let(:singular) { collection.finder?('find_by_name') }
+
+      it 'should return a MatchData object' do
+        match_data.must_be_instance_of MatchData
+      end
+
+      # Since native Regexp named captures weren't supported until < 1.9index
+      it 'should return results in a specific order' do
+        match_data.to_a.must_equal %w[find_all_by_name_and_email_address! find_all_by _all name_and_email_address !]
+        singular.to_a.must_equal ['find_by_name', 'find_by', nil, 'name', nil]
+      end
     end
   end
 
