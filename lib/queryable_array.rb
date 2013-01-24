@@ -111,7 +111,7 @@ class QueryableArray < Array
     end
   end
 
-  # Determines if the +method+ passed to it can be parsed into a search hash
+  # Determines if the +method_name+ passed to it can be parsed into a search hash
   # for +finder+.
   #
   #   finder? :find_by_name                      # => true
@@ -122,8 +122,8 @@ class QueryableArray < Array
   #   finder? :find_first_by_name                # => false
   #   finder? :find_name                         # => false
   #   finder? :some_method                       # => false
-  def finder?(method)
-    method.to_s.match(/^(find(_all)?_by)_(.+)$/)
+  def finder?(method_name)
+    method_name.to_s.match(/^(find(_all)?_by)_(.+?)([\?\!])?$/i)
   end
 
   # If +method+ is a +finder?+ then it creates a search hash by zipping the
