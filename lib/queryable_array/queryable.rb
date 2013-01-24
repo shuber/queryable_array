@@ -1,26 +1,5 @@
 class QueryableArray < Array
   module Queryable
-    # If +key+ is a +Hash+ or an +Array+ containing one
-    # then it acts like an alias for +find_by+ or +find_all+ respectively. It
-    # behaves exactly like its superclass +Array+ in all other cases.
-    #
-    #   pages = QueryableArray.new Page.all
-    #
-    #   pages[uri: '/']                # => #<Page @uri='/' @name='Home'>
-    #   pages[uri: '/', name: 'Home']  # => #<Page @uri='/' @name='Home'>
-    #   pages[uri: '/', name: 'Typo']  # => nil
-    #
-    #   pages[[uri: '/']]                # => [#<Page @uri='/' @name='Home'>]
-    #   pages[[uri: '/', name: 'Typo']]  # => []
-    def [](key)
-      # Try to handle numeric indexes, ranges, and anything else that is
-      # natively supported by Array first
-      super
-    rescue TypeError => error
-      method, key = key.is_a?(Array) ? [:find_all, key.first] : [:find_by, key]
-      key.is_a?(Hash) ? send(method, key) : raise(error)
-    end
-
     # Returns a QueryableArray of objects matching +search+ criteria. When a +block+
     # is specified, it behaves exactly like +Enumerable#find_all+. Otherwise the
     # +search+ hash is converted into a +finder+ proc and passed as the block 
