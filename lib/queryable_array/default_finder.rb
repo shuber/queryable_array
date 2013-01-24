@@ -36,15 +36,13 @@ class QueryableArray < Array
     end
 
     def query(search)
-      case search
-      when Proc
-        search
-      else
-        Proc.new do |object|
+      Proc.new do |object|
+        proc = search.respond_to?(:call) ? search : Proc.new do |object|
           default_finders.any? do |attribute|
             finder(attribute => search).call object
           end
         end
+        proc.call object
       end
     end
   end

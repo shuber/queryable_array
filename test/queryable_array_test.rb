@@ -52,6 +52,14 @@ describe QueryableArray do
       collection[:name => proc { |name| $1.to_i == 2 if name =~ /.+?(\d+)$/ }].must_equal pages[1]
       collection[proc { |page| page.uri == 'page_1' }].must_equal pages[0]
     end
+
+    it 'should accept callable objects' do
+      callable = Class.new { def self.call(object); object.to_s == 'PAGE_1'; end }
+      collection[:name => callable].must_equal pages[0]
+      collection[callable].must_be_nil
+      pages[0].instance_eval { def to_s; 'PAGE_1'; end }
+      collection[callable].must_equal pages[0]
+    end
   end
 
   describe :find_by do
