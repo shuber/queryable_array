@@ -28,7 +28,7 @@ describe QueryableArray do
       collection[:uri => 'page_1', :name => 'INVALID'].must_equal nil
     end
 
-    it 'should not accept strings if default_finders is nil' do
+    it 'should not accept shorthand searches if default_finders is nil' do
       proc { QueryableArray.new(pages)['page_1'] }.must_raise TypeError
     end
 
