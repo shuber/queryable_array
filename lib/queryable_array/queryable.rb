@@ -36,7 +36,7 @@ class QueryableArray < Array
       Proc.new do |object|
         search.all? do |attribute, expected|
           value = object.send attribute if object.respond_to?(attribute)
-          expected == value || expected === value
+          expected == value || expected === value || (expected.respond_to?(:call) && expected.call(value))
         end
       end
     end
