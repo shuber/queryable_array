@@ -1,5 +1,9 @@
 class QueryableArray < Array
   module DynamicFinder
+    def self.included(base)
+      base.send :alias_method, :find_all_by, :find_all
+    end
+
     # Determines if the +method_name+ passed to it can be parsed into a search hash
     # for +finder+.
     #

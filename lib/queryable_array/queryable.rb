@@ -33,7 +33,6 @@ class QueryableArray < Array
       block = finder search unless block_given?
       self.class.new super(&block), default_finders
     end
-    alias_method :find_all_by, :find_all
 
     # Behaves exactly like +find_all+ but only returns the first match. If no match
     # is found then +nil+ is returned.
