@@ -168,6 +168,11 @@ describe QueryableArray do
       collection.pAgE_1?.must_equal true
       collection.missing?.must_equal false
     end
+
+    it 'should be case insensitive' do
+      collection.fInD_By_name('PAGE_1').must_equal pages[0]
+      collection.fInD_ALL_By_name('PAGE_1').must_equal [pages[0]]
+    end
   end
 
   describe :respond_to_missing? do

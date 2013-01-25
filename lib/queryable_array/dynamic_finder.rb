@@ -35,7 +35,7 @@ class QueryableArray < Array
     def method_missing(method_name, *arguments)
       if query = finder?(method_name)
         search = Hash[query[:attributes].split('_and_').zip(arguments)]
-        send "find_#{query[:type]}", search
+        send "find_#{query[:type].downcase}", search
       else
         super
       end
