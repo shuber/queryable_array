@@ -10,7 +10,7 @@ class QueryableArray < Array
     #   users.find_all { |user| user.age < 30 }  # => [#<User @age=22>, #<User @age=26>, ...]
     def find_all(search = {}, &block)
       block = finder search unless block_given?
-      self.class.new super(&block)
+      dup.replace super(&block)
     end
 
     # Behaves exactly like +find_all+ but only returns the first match. If no match

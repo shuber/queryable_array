@@ -95,6 +95,11 @@ describe QueryableArray do
       collection.respond_to?(:find_all_by).must_equal true
       collection.find_all_by(:uri => 'page_1').must_equal collection.find_all(:uri => 'page_1')
     end
+
+    it 'should return a QueryableArray with the same default_finders' do
+      collection.find_all(:uri => 'page_1').default_finders.must_equal collection.default_finders
+      collection.default_finders.wont_be_nil
+    end
   end
 
   describe :finder? do
