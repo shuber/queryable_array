@@ -1,9 +1,9 @@
 class QueryableArray < Array
   module Queryable
-    # Returns a QueryableArray of objects matching +search+ criteria. When a +block+
-    # is specified, it behaves exactly like +Enumerable#find_all+. Otherwise the
-    # +search+ hash is converted into a +finder+ proc and passed as the block 
-    # argument to +Enumerable#find_all+.
+    # Returns a dup'd +Queryable+ replaced with objects matching the +search+
+    # criteria. When a +block+ is specified, it behaves exactly like
+    # +Enumerable#find_all+. Otherwise the +search+ hash is converted into
+    # a +finder+ proc and passed as the block argument to +Enumerable#find_all+.
     #
     #   users.find_all(age: 30)                  # => [#<User @age=30>, #<User @age=30>, ...]
     #   users.find_all(name: 'missing')          # => []
@@ -24,10 +24,15 @@ class QueryableArray < Array
     end
 
     # Accepts a +search+ hash and returns a +Proc+ which determines if all of an
-    # object's attributes match their expected search values. It can be used as
+    # object's searched attributes match their expected values. It can be used as
     # the block arguments for +find+, +find_by+ and +find_all+.
     #
-    #   query = finder name: 'bob'     # => proc { |user| user.name == 'bob' }
+    # Values are compared with expected values using <tt>==</tt> or <tt>===</tt>.
+    # If the expected value is a +Proc+ or anything that responds to +call+ then
+    # it is evaluated with the +value+ as an argument and checks for a response
+    # other than +nil+ or +false+.
+    #
+    #   query = finder(name: 'bob')    # => proc { |user| user.name == 'bob' }
     #   query User.new(name: 'steve')  # => false
     #   query User.new(name: 'bob')    # => true
     #
