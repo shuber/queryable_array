@@ -6,18 +6,25 @@ class QueryableArray < Array
       base.send :include, DefaultFinder
     end
 
-    # If +method_name+ does not have a <tt>!</tt> or <tt>?</tt> suffix then +self[/#{method_name}/i]+
+    # If +method_name+ does not have a <tt>!</tt> or <tt>?</tt> suffix then <tt>self[/#{method_name}/i]</tt>
     # is returned. If it returns +nil+ or raises +TypeError+ (no +default_finders+) then +super+ is returned.
     #
-    # If +method_name+ ends in a <tt>!</tt> then +self[method_name]+ (without the <tt>!</tt>) is returned. If +method_name+
+    # If +method_name+ ends in a <tt>!</tt> then <tt>self[method_name]</tt> (without the <tt>!</tt>) is returned. If +method_name+
     # ends with a <tt>?</tt> then a boolean is returned determining whether or not a match was found.
     #
     #   users = QueryableArray.new User.all, :username
     #
-    #   users.bob                             # => #<User @name='bob'>
-    #   users.BOB                             # => #<User @name='bob'>
-    #   users.missing                         # => NoMethodError
-    #   QueryableArray.new.missing            # => NoMethodError
+    #   users.bob                   # => #<User @username='bob'>
+    #   users.BOB                   # => #<User @username='bob'>
+    #   users.missing               # => NoMethodError
+    #   QueryableArray.new.missing  # => NoMethodError
+    #
+    #   users.bob!  # => #<User @username='bob'>
+    #   users.BOB!  # => NoMethodError
+    #
+    #   users.bob?      # => true
+    #   users.BOB?      # => true
+    #   users.missing?  # => false
     def method_missing(method_name, *arguments)
       if method_name.to_s =~ /^(.+?)([\!\?])?$/
         search = $2 == '!' ? $1 : /#{$1}/i
@@ -30,8 +37,10 @@ class QueryableArray < Array
       end
     end
 
+    # Checks if +method_name+ can be handled by +method_missing+ and
+    # and delegates the call to +super+ otherwise.
     def respond_to_missing?(method_name, include_super)
-      !!(method_name.to_s =~/\?$/ || super || send(method_name))
+      !!(method_name.to_s =~ /\?$/ || super || send(method_name))
     rescue NoMethodError
       false
     end
