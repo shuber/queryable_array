@@ -32,11 +32,16 @@ class QueryableArray < Array
     # it is evaluated with the +value+ as an argument and checks for a response
     # other than +nil+ or +false+.
     #
-    #   query = finder(name: 'bob')    # => proc { |user| user.name == 'bob' }
+    # Searched attributes first check if the +object+ responds to the attribute
+    # so +NoMethodError+ is never thrown if an attribute doesn't exist.
+    #
+    #   query = finder(name: 'bob')    # => proc { |user| user.name == 'bob' } # pseudo code
     #   query User.new(name: 'steve')  # => false
     #   query User.new(name: 'bob')    # => true
     #
     #   users.find(&query)             # => #<User @name='bob'>
+    #
+    #   users.find &finder(missing: 'value')  # => nil
     def finder(search)
       Proc.new do |object|
         search.all? do |attribute, expected|
