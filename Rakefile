@@ -1,5 +1,9 @@
 require 'rake/testtask'
-require 'rdoc/task'
+begin
+  require 'rdoc/task'
+rescue LoadError
+  require 'rake/rdoctask'
+end
 
 desc 'Default: run unit tests.'
 task :default => :test
