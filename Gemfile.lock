@@ -13,7 +13,7 @@ GEM
     rake (10.0.3)
     rdoc (3.12)
       json (~> 1.4)
-    respond_to_missing (0.0.0)
+    respond_to_missing (0.0.1)
     turn (0.9.6)
       ansi
 
