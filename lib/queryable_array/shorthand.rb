@@ -1,4 +1,6 @@
 class QueryableArray < Array
+  # Makes <tt>[search_hash]</tt> and <tt>[[search_hash]]</tt> behave as an alias
+  # for +find_by+ and +find_all+ respectively
   module Shorthand
     # If +key+ is a +Hash+, +Proc+, or an +Array+ containing a +Hash+ or +Proc+
     # then it acts like an alias for +find_by+ or +find_all+ respectively. It

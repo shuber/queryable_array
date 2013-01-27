@@ -1,5 +1,8 @@
 class QueryableArray < Array
   module DynamicFinder
+    # Allows objects to be searched by dynamic finders thru +method_missing+ similar
+    # to the ActiveRecord dynamic attribute-based finders e.g. +find_by_email+ or
+    # +find_all_by_last_name+
     def self.included(base)
       base.send :alias_method, :find_all_by, :find_all
     end

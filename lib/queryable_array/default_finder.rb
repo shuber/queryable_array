@@ -1,4 +1,9 @@
 class QueryableArray < Array
+  # Allows objects to be searched by +default_finders+ thru <tt>[]</tt>. For example:
+  #
+  #   users = QueryableArray.new(User.all, :email)
+  #   users['test@example.com']    # => #<User @email='test@example.com'>
+  #   users['missing@domain.com']  # => nil
   module DefaultFinder
     attr_accessor :default_finders
 

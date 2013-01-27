@@ -1,4 +1,7 @@
 class QueryableArray < Array
+  # Allows +find_by+ and +find_all+ to accept search hashes which are
+  # converted into +Proc+ searches and passed as the block arguments for
+  # +find+ and +find_all+ respectively
   module Queryable
     # Returns a dup'd +Queryable+ replaced with objects matching the +search+
     # criteria. When a +block+ is specified, it behaves exactly like

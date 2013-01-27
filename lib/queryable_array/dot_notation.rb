@@ -1,6 +1,8 @@
 require 'queryable_array/default_finder'
 
 class QueryableArray < Array
+  # Allows objects to be searched using dot notation thru +method_missing+
+  # which behaves like an alias to <tt>QueryableArray::DefaultFinder#[]</tt>
   module DotNotation
     def self.included(base)
       base.send :include, DefaultFinder

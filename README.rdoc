@@ -25,7 +25,7 @@ Initialize the +QueryableArray+ with a collection of objects e.g. +Page+ objects
 
   pages = QueryableArray.new Page.all
 
-The +pages+ object can then be queried by passing a search hash to the +[]+ method
+The +pages+ object can then be queried by passing a search hash to the <tt>[]</tt> method
 
   pages[uri: '/']                    # => #<Page @uri='/' @name='Home'>
   pages[name: 'About']               # => #<Page @uri='/about' @name='About'>
@@ -122,3 +122,21 @@ You may also query to see if a match exists by appending a <tt>?</tt> to your se
 
   pages.sitemap?  # => true
   pages.missing?  # => false
+
+
+=== Composable
+
+Functionality for +QueryableArray+ has been separated out into individual modules
+containing their own features which allows you to create your own objects and only
+include the features you care about
+
+  QueryableArray::DefaultFinder
+  QueryableArray::DotNotation
+  QueryableArray::DynamicFinder
+  QueryableArray::Queryable
+  QueryableArray::Shorthand
+
+
+== Testing
+
+  bundle exec rake
