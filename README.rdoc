@@ -130,11 +130,11 @@ Functionality for +QueryableArray+ has been separated out into individual module
 containing their own features which allows you to create your own objects and only
 include the features you care about
 
-  QueryableArray::DefaultFinder
-  QueryableArray::DotNotation
-  QueryableArray::DynamicFinder
-  QueryableArray::Queryable
-  QueryableArray::Shorthand
+* <tt>QueryableArray::DefaultFinder</tt> - Allows objects to be searched by +default_finders+ thru <tt>[]</tt>
+* <tt>QueryableArray::DotNotation</tt> - Allows objects to be searched using dot notation thru +method_missing+ which behaves like an alias to <tt>QueryableArray::DefaultFinder#[]</tt>
+* <tt>QueryableArray::DynamicFinder</tt> - Allows objects to be searched by dynamic finders thru +method_missing+ similar to the ActiveRecord dynamic attribute-based finders e.g. +find_by_email+ or +find_all_by_last_name+
+* <tt>QueryableArray::Queryable</tt> - Allows +find_by+ and +find_all+ to accept search hashes which are converted into +Proc+ searches and passed as the block arguments for +find+ and +find_all+ respectively
+* <tt>QueryableArray::Shorthand</tt> - Makes <tt>[search_hash]</tt> and <tt>[[search_hash]]</tt> behave as an alias for +find_by+ and +find_all+ respectively
 
 
 == Testing
