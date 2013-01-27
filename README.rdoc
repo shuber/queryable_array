@@ -12,6 +12,7 @@ for looking up objects by querying their attributes.
 
 View the full documentation over at rubydoc.info[http://rubydoc.info/github/shuber/queryable_array/frames].
 
+
 == Installation
 
   gem install queryable_array
@@ -135,6 +136,21 @@ include the features you care about
 * <tt>QueryableArray::DynamicFinder</tt> - Allows objects to be searched by dynamic finders thru +method_missing+ similar to the ActiveRecord dynamic attribute-based finders e.g. +find_by_email+ or +find_all_by_last_name+
 * <tt>QueryableArray::Queryable</tt> - Allows +find_by+ and +find_all+ to accept search hashes which are converted into +Proc+ searches and passed as the block arguments for +find+ and +find_all+ respectively
 * <tt>QueryableArray::Shorthand</tt> - Makes <tt>[search_hash]</tt> and <tt>[[search_hash]]</tt> behave as an alias for +find_by+ and +find_all+ respectively
+
+
+=== Real world example
+
+Try using it inside of your templates:
+
+  <div class="posts">
+    <%- posts[[published: true]].each do |post| -%>
+      <div class="post">
+        <h2><a href="<%= post.url -%>"><%= post.title -%></a></h2>
+        <div class="excerpt"><%= post.excerpt -%></div>
+        <a href="<%= post.url -%>#comments"><%= post.comments[[approved: true]].size -%> comments</a>
+      </div>
+    <%- end -%>
+  </div>
 
 
 == Testing
