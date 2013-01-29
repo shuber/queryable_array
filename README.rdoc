@@ -22,7 +22,7 @@ View the full documentation over at rubydoc.info[http://rubydoc.info/github/shub
 
 === Basic
 
-Initialize the +QueryableArray+ with a collection of objects e.g. +Page+ objects from a database
+Initialize the +QueryableArray+ with a collection of objects e.g. +Page+ objects from a JSON response or database query (although you should probably restrict database queries with WHERE conditions instead if you have the opportunity)
 
   pages = QueryableArray.new Page.all
 
@@ -33,7 +33,7 @@ The +pages+ object can then be queried by passing a search hash to the <tt>[]</t
   pages[uri: '/', name: 'Home']      # => #<Page @uri='/' @name='Home'>
   pages[uri: '/', name: 'Mismatch']  # => nil
 
-Notice that it only returns the first matching object or nil if one is not found. If you'd like to find
+Notice that it only returns the first matching object or +nil+ if one is not found. If you'd like to find
 all matching objects, simply wrap your search hash in an array
 
   pages[[published: true]]  # => [#<Page @uri='/' @name='Home' @published=true>, #<Page @uri='/about' @name='About' @published=true>, ...]
