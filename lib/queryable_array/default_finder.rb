@@ -1,3 +1,5 @@
+require 'queryable_array/queryable'
+
 class QueryableArray < Array
   # Allows objects to be searched by +default_finders+ thru <tt>[]</tt>. For example:
   #
@@ -5,6 +7,10 @@ class QueryableArray < Array
   #   users['test@example.com']    # => #<User @email='test@example.com'>
   #   users['missing@domain.com']  # => nil
   module DefaultFinder
+    def self.included(base)
+      base.send :include, Queryable
+    end
+
     attr_accessor :default_finders
 
     # Accepts an initial +array+ which defaults to +[]+. An optional +default_finders+
