@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    queryable_array (0.0.0)
+    queryable_array (0.0.1)
       respond_to_missing
 
 GEM
