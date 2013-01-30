@@ -53,12 +53,13 @@ class QueryableArray < Array
     # loops thru each +default_finders+ looking for a value that matches +search+.
     def query(search)
       Proc.new do |object|
-        proc = search.respond_to?(:call) ? search : Proc.new do |object|
+        if search.respond_to?(:call)
+          search.call object
+        else
           default_finders.any? do |attribute|
             finder(attribute => search).call object
           end
         end
-        proc.call object
       end
     end
   end
