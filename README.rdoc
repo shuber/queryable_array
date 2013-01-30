@@ -138,6 +138,15 @@ include the features you care about
 * <tt>QueryableArray::Queryable</tt> - Allows +find_by+ and +find_all+ to accept search hashes which are converted into +Proc+ searches and passed as the block arguments for +find+ and +find_all+ respectively
 * <tt>QueryableArray::Shorthand</tt> - Makes <tt>[search_hash]</tt> and <tt>[[search_hash]]</tt> behave as an alias for +find_by+ and +find_all+ respectively
 
+Try making your own classes with them
+
+  class Collection < Array
+    include QueryableArray::Queryable
+  end
+
+  pages = Collection.new Page.all
+  pages.find_all(published: true)  # => [#<Page @uri='/' @published=true>, #<Page @uri='/about' @published=true>]
+
 
 === Real world example
 
