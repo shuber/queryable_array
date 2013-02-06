@@ -11,7 +11,7 @@ GEM
     json (1.7.6)
     minitest (4.5.0)
     rake (10.0.3)
-    rdoc (3.12)
+    rdoc (3.12.1)
       json (~> 1.4)
     respond_to_missing (0.0.1)
     turn (0.9.6)
