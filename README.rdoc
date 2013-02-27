@@ -2,8 +2,8 @@
 
 {<img src="https://secure.travis-ci.org/shuber/queryable_array.png"/>}[http://travis-ci.org/shuber/queryable_array]
 {<img src="https://gemnasium.com/shuber/queryable_array.png"/>}[https://gemnasium.com/shuber/queryable_array]
-{<img src="https://d25lcipzij17d.cloudfront.net/badge.png?v=0.0.1"/>}[http://rubygems.org/gems/queryable_array]
-{<img src="https://codeclimate.com/badge.png" />}[https://codeclimate.com/github/shuber/queryable_array]
+{<img src="https://codeclimate.com/github/shuber/queryable_array.png" />}[https://codeclimate.com/github/shuber/queryable_array]
+{<img src="https://d25lcipzij17d.cloudfront.net/badge.png?type=2&v=0.0.1"/>}[http://rubygems.org/gems/queryable_array]
 {<img src="https://cruel-carlota.pagodabox.com/7a59714373e9cf2a139f0c90cc73e10d" />}[http://githalytics.com/shuber/queryable_array]
 
 A +QueryableArray+ inherits from +Array+ and is intended to store a group of
