@@ -5,7 +5,7 @@ PATH
       respond_to_missing
 
 GEM
-  remote: http://rubygems.org/
+  remote: https://rubygems.org/
   specs:
     ansi (1.4.3)
     json (1.7.6)
