@@ -13,6 +13,11 @@ View the full documentation over at rubydoc.info[http://rubydoc.info/github/shub
   gem install queryable_array
 
 
+== Requirements
+
+Ruby 1.9+
+
+
 == Usage
 
 === Basic
