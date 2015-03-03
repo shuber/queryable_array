@@ -1,7 +1,8 @@
-language: ruby
 rvm:
   - 1.8.7
   - 1.9.2
-  - 1.9.3
-  - ree
+  - 2.0.0
   - ruby-head
+addons:
+  code_climate:
+    repo_token: 22afb2619ee0c07f7bf8771fedebb8c77ba4e27392cbaf8a4691860a371f9537
