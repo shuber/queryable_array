@@ -30,11 +30,7 @@ class QueryableArray < Array
     def method_missing(method_name, *arguments)
       if method_name.to_s =~ /^(.+?)([\!\?])?$/
         search = $2 == '!' ? $1 : /#{$1}/i
-        value = begin
-          self[search]
-        rescue TypeError
-          nil
-        end
+        value = self[search]
         $2 == '?' ? !!value : (value || super)
       end
     end
