@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
 
   s.author   = 'Sean Huber'
   s.email    = 'github@shuber.io'
-  s.homepage = 'http://github.com/shuber/queryable_array'
+  s.homepage = 'https://github.com/shuber/queryable_array'
 
   s.require_paths = ['lib']
 
