@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.description = 'QueryableArray is intended to store a group of objects which share the same attributes allowing them to be searched with a simplified DSL'
 
   s.author   = 'Sean Huber'
-  s.email    = 'shuber@huberry.com'
+  s.email    = 'github@shuber.io'
   s.homepage = 'http://github.com/shuber/queryable_array'
 
   s.require_paths = ['lib']
